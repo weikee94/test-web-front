@@ -1,26 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+
+import axios from "axios";
+
+const rootAPI = "https://stark-anchorage-68703.herokuapp.com/";
 
 class App extends Component {
+  state = {
+    todos: []
+  };
+
+  componentDidMount() {
+    axios.get(`${rootAPI}todos`).then(res => {
+      const todos = res.data.todos;
+      this.setState({
+        todos
+      });
+    });
+  }
+
   render() {
+    // console.log(this.state.todos);
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {this.state.todos.length > 0
+          ? this.state.todos.map((data, i) => <div key={i}>{data.text}</div>)
+          : null}
       </div>
+      // <div>asd</div>
     );
   }
 }
