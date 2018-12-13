@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import "./App.css";
 
 import axios from "axios";
@@ -24,7 +25,11 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.todos.length > 0
-          ? this.state.todos.map((data, i) => <div key={i}>{data.text}</div>)
+          ? this.state.todos.map((data, i) => (
+              <NavLink to={`/todos/${data._id}`} key={i}>
+                <div>{data.text}</div>)
+              </NavLink>
+            ))
           : null}
       </div>
       // <div>asd</div>
